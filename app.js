@@ -16,5 +16,8 @@ app.get('/', (request, response) => {
     response.send('INDEX');
 });
 
+app.use(require('./routes/user'))
+
+
 const PORT = process.env.PORT || 5000; // use host port or 5000 if non is found
-app.listen(PORT, console.log('server running on port 5000'));
+app.listen(PORT, console.log(`server running on port ${PORT} `));
