@@ -13,9 +13,15 @@ db.authenticate()
 
 const app = express();
 
-// handlebars template engine 
-app.engine('handlebars', handlebars({ defaultLayout: "main" }));
+// handlebars template engine  
+app.engine('handlebars', handlebars({
+    helpers: require("./helpers/handlebars.js").helpers,
+    defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
+
+// body parse
+app.use(bodyParser.urlencoded({ extended: false })); // for form requests
 
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')))
@@ -24,7 +30,10 @@ app.get('/', (request, response) => {
     response.send('INDEX');
 });
 
-app.use(require('./routes/user'))
+
+let routes = require('./routes/userRoutes'); //importing route 
+routes(app); //register the route
+
 
 
 const PORT = process.env.PORT || 5000; // use host port or 5000 if non is found

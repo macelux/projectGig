@@ -3,7 +3,49 @@ const router = express.Router();
 const db = require('../config/database');
 const User = require('../models/User');
 
-// get route
+
+// users route
+router.route('/user/add')
+    .get((req, res) => { res.render('add') })
+    .post((req, res) => {
+        // pull out this properties from the data object ( destructuring)
+        let { name, email, password } = req.body;
+        let errors = [];
+        // validate Fields
+        if (!name) {
+            errors.push({ text: "Please add a name" })
+        }
+        if (!email) {
+            errors.push({ text: "Please add email" })
+        }
+        if (!password) {
+            errors.push({ text: "Please enter password" })
+        }
+
+
+        // check for errors
+        if (errors.length > 0) {
+            res.render('add', {
+                errors,
+                name,
+                email
+            })
+        } else {
+            // insert into database
+            User.create({
+                    name,
+                    email,
+                    password,
+                    email_vertified_at: new Date(),
+                    remember_token: 1
+                })
+                .then(users => res.redirect('/user'))
+                .catch(err => console.log('Error ' + err))
+        }
+
+    });
+
+
 router.get('/user', (req, res) => {
     // get user list
     User.findAll()
@@ -17,34 +59,5 @@ router.get('/user', (req, res) => {
         })
 });
 
-
-// display user form
-router.get('/user/add', (req, res) => {
-    res.render('add')
-});
-
-
-// add user route
-router.post('/user/add', (req, res) => {
-    const data = {
-        name: 'mac',
-        email: 'mac@hsd.com',
-        password: '023994885'
-    }
-
-    // pull out this properties from the data object ( destructuring)
-    let { name, email, password, email_vertified_at, remember_token } = data;
-
-    // insert into database
-    User.create({
-            name,
-            email,
-            password,
-            email_vertified_at,
-            remember_token
-        })
-        .then(users => res.redirect('/user'))
-        .catch(err => console.log('Error ' + err))
-})
 
 module.exports = router;
