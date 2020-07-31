@@ -17,14 +17,9 @@ const User = db.define('users', {
     },
     remember_token: {
         type: Sequelize.STRING
-    },
-    created_at: {
-        type: Sequelize.STRING
-    },
-    updated_at: {
-        type: Sequelize.STRING
     }
-
+}, {
+    timestamps: false
 });
 
 module.exports = User;

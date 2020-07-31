@@ -6,11 +6,19 @@ const path = require('path');
 // Database 
 const db = require('./config/database')
 
+// connect to database
 db.authenticate()
     .then(() => { console.log('database connected') })
     .catch(err => console.log('Error ' + err))
 
 const app = express();
+
+// handlebars template engine
+app.engine('handlebars', handlebars({ defaultLayout: "main" }));
+app.set('view engine', 'handlebars');
+
+// set static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (request, response) => {
     response.send('INDEX');
