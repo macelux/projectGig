@@ -4,18 +4,25 @@ const db = require('../config/database');
 const User = require('../models/User');
 
 // get route
-router.get('/user', (rq, res) => {
+router.get('/user', (req, res) => {
     // get user list
     User.findAll()
         .then(users => {
             res.render('users', {
-                users
+                users: users.map(users => users.toJSON())
             });
         })
         .catch(err => {
             console.log('Error' + err);
         })
 });
+
+
+// display user form
+router.get('/', (req, res) => {
+    res.render('add')
+});
+
 
 // add user route
 router.get('/add', (req, res) => {

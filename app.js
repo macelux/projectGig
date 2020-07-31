@@ -13,7 +13,7 @@ db.authenticate()
 
 const app = express();
 
-// handlebars template engine
+// handlebars template engine 
 app.engine('handlebars', handlebars({ defaultLayout: "main" }));
 app.set('view engine', 'handlebars');
 
@@ -28,4 +28,11 @@ app.use(require('./routes/user'))
 
 
 const PORT = process.env.PORT || 5000; // use host port or 5000 if non is found
+
+
+app.on('listening', function() {
+    console.log('ok, server is running');
+});
+
+
 app.listen(PORT, console.log(`server running on port ${PORT} `));
