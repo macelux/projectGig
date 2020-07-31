@@ -1,17 +1,19 @@
-<section>
+<section class="container">
     <h1>All clients</h1>  
        {{#each users}} 
-        <div class="users">
-            
-            <h3> Firstname</h3>
-            <p>{{@key}} {{name}}</p>
-
-            <h3> Email</h3>
-            <p>{{email}}</p> 
+        <div class="users list-group">  
+            <div class="list-group-item">
+                <h5> Firstname</h5>
+                <p >{{@key}} {{name}}</p>
+            </div>
+            <div class="list-group-item">
+                <h5> Email</h5>
+                <p >{{email}}</p> 
+            </div>
+          
         </div> 
-       {{/each}}
- 
-
-
+        {{else}}
+            <p>No data available</p>
+       {{/each}} 
 
 </section>

@@ -19,19 +19,17 @@ router.get('/user', (req, res) => {
 
 
 // display user form
-router.get('/', (req, res) => {
+router.get('/user/add', (req, res) => {
     res.render('add')
 });
 
 
 // add user route
-router.get('/add', (req, res) => {
+router.post('/user/add', (req, res) => {
     const data = {
         name: 'mac',
         email: 'mac@hsd.com',
-        password: '023994885',
-        email_vertified_at: '1',
-        remember_token: 'ewer'
+        password: '023994885'
     }
 
     // pull out this properties from the data object ( destructuring)
