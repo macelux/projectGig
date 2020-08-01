@@ -1,20 +1,41 @@
 <section class="container">
+    <br>
     <h1>All clients</h1>  
-       {{#each users}} 
-           {{inc @key}}
-        <div class="users list-group">  
-            <div class="list-group-item"> 
-                <h5> Firstname</h5>
-                <p > {{this.name}}</p>
-            </div>
-            <div class="list-group-item">
-                <h5> Email</h5>
-                <p >{{email}}</p> 
-            </div>
-            <br>
+    {{#if sessionFlash.message}}
+        <div class="alert alert-dismissible alert-success" role="alert">
+            {{sessionFlash.message}}
         </div> 
-        {{else}}
-            <p>No data available</p>
-       {{/each}} 
+    {{/if}}  
+ 
+    <div class="col-12">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <th>S/N</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>action</th>
+            </thead>
+            <tbody>
+                {{#each users}}  
+                <tr>
+                    <td> {{inc @key}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>
+                        <div class="form-group"> 
+                            <form action="/user" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm" >delete</submit>
+                                <input type="hidden" name="user_id" value="{{id}}">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {{else}}
+                <p>No data available</p>
+                {{/each}} 
 
+            </tbody>
+        </table>
+    </div> 
+        
 </section>

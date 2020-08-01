@@ -56,3 +56,26 @@ exports.get_user = function(req, res) {
             console.log('Error' + err);
         })
 }
+
+exports.delete_user = function(req, res) {
+
+    User.destroy({
+            where: { id: req.body.user_id }
+        })
+        .then(users => {
+            req.session.sessionFlash = {
+                type: 'info',
+                message: 'Deleted succesfully'
+            }
+            res.redirect('/user');
+        })
+        .catch(err => {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'error in deleting data'
+            }
+            res.redirect('/user');
+        })
+
+
+}
